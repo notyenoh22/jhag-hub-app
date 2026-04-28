@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: 22
 
-      - name: Setup Java
+      - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: temurin
