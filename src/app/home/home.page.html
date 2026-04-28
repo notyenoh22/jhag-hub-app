@@ -1,0 +1,197 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="logo-title">
+      <div class="logo-container">
+        <img src="assets/perfume-icon.svg" alt="JHAG Hub" class="logo-img" onerror="this.src='https://e7.pngegg.com/pngimages/1011/362/png-clipart-aliexpress-online-shopping-mobile-app-android-ali-logo-angle-orange-thumbnail.png'">
+        <span>JHAG Hub</span>
+      </div>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="toggleSearch()">
+        <ion-icon name="search-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="activeTab = 'cart'">
+        <ion-icon name="cart-outline"></ion-icon>
+        <ion-badge *ngIf="cart.length > 0" class="cart-badge">{{ cart.length }}</ion-badge>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Toggleable Search Bar -->
+  <div class="search-bar-container" *ngIf="showSearchBar && activeTab === 'products'">
+    <ion-item>
+      <ion-icon name="search-outline" slot="start"></ion-icon>
+      <ion-input placeholder="Search perfumes..." [(ngModel)]="searchQuery" (ionInput)="filterProducts()"></ion-input>
+      <ion-button fill="clear" slot="end" (click)="searchQuery = ''; filterProducts()" *ngIf="searchQuery">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </div>
+
+  <!-- Products Tab -->
+  <div *ngIf="activeTab === 'products'">
+    <h2 class="section-title">Our Fragrances</h2>
+    <p class="note">{{ filteredProducts.length }} products found</p>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" size-sm="6" size-md="4" size-lg="3" *ngFor="let product of filteredProducts">
+          <ion-card class="product-card">
+            <div class="tag" [class.tag-sale]="product.tag === 'SALE'" 
+                              [class.tag-new]="product.tag === 'NEW'"
+                              [class.tag-hot]="product.tag === 'HOT'"
+                              [class.tag-premium]="product.tag === 'PREMIUM'">
+              {{ product.tag }}
+            </div>
+            <img [src]="product.img" class="product-img">
+            <ion-card-header>
+              <ion-card-title class="product-name">{{ product.name }}</ion-card-title>
+              <div class="rating">
+                <ion-icon *ngFor="let star of getStars(product.rating)" [name]="star" class="star-icon"></ion-icon>
+                <span class="rating-text">{{ product.rating }}</span>
+              </div>
+              <ion-card-subtitle class="product-price">₱{{ product.price }}</ion-card-subtitle>
+              <div class="pill">{{ product.category }}</div>
+              <p class="product-desc">{{ product.description }}</p>
+              <div class="stock-info" *ngIf="product.stock">
+                <ion-icon name="cube-outline"></ion-icon>
+                <span>{{ product.stock }} left</span>
+              </div>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-button expand="block" class="btn-primary" (click)="addToCart(product)">
+                <ion-icon slot="start" name="cart-outline"></ion-icon>
+                Add to Cart
+              </ion-button>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <!-- Cart Tab -->
+  <div *ngIf="activeTab === 'cart'">
+    <h2 class="section-title">Your Cart</h2>
+    <div *ngIf="cart.length === 0" class="empty-cart">
+      <ion-icon name="cart-outline"></ion-icon>
+      <p>Your cart is empty</p>
+      <ion-button fill="outline" class="btn-outline" (click)="activeTab = 'products'">Browse Products</ion-button>
+    </div>
+    <div *ngFor="let item of cart" class="cart-item">
+      <img [src]="item.img" class="cart-item-img">
+      <div class="cart-item-details">
+        <h4>{{ item.name }}</h4>
+        <p class="cart-item-price">₱{{ item.price }}</p>
+        <div class="cart-quantity">
+          <ion-button size="small" fill="clear" (click)="updateCartQuantity(item, -1)">
+            <ion-icon name="remove-outline"></ion-icon>
+          </ion-button>
+          <span class="quantity-num">{{ item.quantity }}</span>
+          <ion-button size="small" fill="clear" (click)="updateCartQuantity(item, 1)">
+            <ion-icon name="add-outline"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+      <ion-button fill="clear" color="danger" (click)="removeCartItem(item.id)">
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-button>
+    </div>
+    <div *ngIf="cart.length > 0" class="cart-summary">
+      <div class="cart-total">
+        <h3>Total: <span class="total-amount">₱{{ cartTotal }}</span></h3>
+      </div>
+      <ion-button expand="block" class="btn-primary btn-large" (click)="checkout()"t>Proceed to Checkout</ion-button>
+    </div>
+  </div>
+
+  <!-- Profile Tab (logged in) -->
+  <div *ngIf="activeTab === 'profile' && currentUser">
+    <div class="profile-card">
+      <div class="profile-avatar"><ion-icon name="person-circle-outline"></ion-icon></div>
+      <h2>{{ currentUser.name }}</h2>
+      <div class="profile-field"><ion-icon name="mail-outline"></ion-icon><span>{{ currentUser.email }}</span></div>
+      <div class="profile-field"><ion-icon name="calendar-outline"></ion-icon><span>Member since 2024</span></div>
+      <ion-button expand="block" class="btn-danger" (click)="logout()">
+        <ion-icon slot="start" name="log-out-outline"></ion-icon> Logout
+      </ion-button>
+    </div>
+  </div>
+
+  <!-- Profile Tab (not logged in) -->
+  <div *ngIf="activeTab === 'profile' && !currentUser" class="login-prompt">
+    <ion-icon name="person-outline"></ion-icon>
+    <h3>Welcome to JHAG Hub</h3>
+    <p>Login or create an account</p>
+    <ion-button expand="block" class="btn-primary" (click)="openAuthModal('login')">Login</ion-button>
+    <ion-button expand="block" fill="outline" class="btn-outline" (click)="openAuthModal('signup')">Sign Up</ion-button>
+  </div>
+</ion-content>
+
+<!-- Bottom Navigation -->
+<ion-footer>
+  <ion-toolbar class="bottom-nav">
+    <ion-segment [(ngModel)]="activeTab" mode="md">
+      <ion-segment-button value="products">
+        <ion-icon name="home-outline"></ion-icon>
+        <ion-label>Products</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="cart">
+        <ion-icon name="cart-outline"></ion-icon>
+        <ion-badge *ngIf="cart.length > 0" class="segment-badge">{{ cart.length }}</ion-badge>
+        <ion-label>Cart</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="profile">
+        <ion-icon name="person-outline"></ion-icon>
+        <ion-label>Profile</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-footer>
+
+<!-- Auth Modal -->
+<ion-modal [isOpen]="showAuthModal" (didDismiss)="closeAuthModal()">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>{{ authMode === 'login' ? 'Login' : 'Create Account' }}</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeAuthModal()"><ion-icon name="close-outline"></ion-icon></ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <div class="auth-container">
+        <div class="auth-logo">
+          <img src="assets/perfume-icon.svg" onerror="this.src='https://picsum.photos/seed/logo/80/80'">
+          <h2>JHAG Hub</h2>
+          <p>Where great deals begin.</p>
+        </div>
+        <ion-item *ngIf="authMode === 'signup'">
+          <ion-label position="floating">Full Name</ion-label>
+          <ion-input [(ngModel)]="authName"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input type="email" [(ngModel)]="authEmail"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Password</ion-label>
+          <ion-input type="password" [(ngModel)]="authPassword"></ion-input>
+        </ion-item>
+        <div *ngIf="authMessage" class="auth-message"><ion-text color="danger">{{ authMessage }}</ion-text></div>
+        <ion-button expand="block" class="btn-primary" (click)="submitAuth()">
+          {{ authMode === 'login' ? 'Login' : 'Sign Up' }}
+        </ion-button>
+        <div class="auth-switch">
+          <span *ngIf="authMode === 'login'">Don't have an account? </span>
+          <span *ngIf="authMode === 'signup'">Already have an account? </span>
+          <ion-text color="primary" (click)="authMode = authMode === 'login' ? 'signup' : 'login'">
+            {{ authMode === 'login' ? 'Sign Up' : 'Login' }}
+          </ion-text>
+        </div>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>

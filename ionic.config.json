@@ -1,0 +1,7 @@
+{
+  "name": "JHAG Hub",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
