@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Files
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -25,29 +25,30 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: Install Dependencies
-        run: npm install
+      - name: Install dependencies
+        run: npm ci
 
       - name: Install Ionic CLI
         run: npm install -g @ionic/cli
 
-      - name: Build Ionic
-        run: ionic build
+      - name: Build Ionic app
+        run: ionic build --prod
 
       - name: Install Capacitor
-        run: npm install @capacitor/core @capacitor/cli @capacitor/android
+        run: |
+          npm install @capacitor/core @capacitor/cli @capacitor/android
 
-      - name: Add Android Platform
+      - name: Add Android platform
         run: npx cap add android
 
-      - name: Sync Capacitor
+      - name: Sync Android
         run: npx cap sync android
 
       - name: Build APK
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleDebug --stacktrace
+          ./gradlew assembleDebug --no-daemon
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
