@@ -27,9 +27,6 @@ jobs:
       - name: Install dependencies
         run: npm install
       
-      - name: Install Angular CLI
-        run: npm install -g @angular/cli
-      
       - name: Install Ionic CLI
         run: npm install -g @ionic/cli
       
@@ -45,10 +42,8 @@ jobs:
       - name: Sync Android
         run: npx cap sync android
       
-      - name: Setup Gradle
-        run: |
-          cd android
-          chmod +x gradlew
+      - name: Setup Gradle permissions
+        run: chmod +x android/gradlew
       
       - name: Build Debug APK
         run: |
