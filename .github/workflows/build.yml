@@ -27,6 +27,9 @@ jobs:
       - name: Install dependencies
         run: npm install
       
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli
+      
       - name: Install Ionic CLI
         run: npm install -g @ionic/cli
       
@@ -34,20 +37,26 @@ jobs:
         run: ionic build
       
       - name: Install Capacitor
-        run: |
-          npm install @capacitor/core @capacitor/cli @capacitor/android
+        run: npm install @capacitor/core @capacitor/cli @capacitor/android
+      
+      - name: Add Android platform
+        run: npx cap add android
       
       - name: Sync Android
         run: npx cap sync android
       
-      - name: Build Debug APK
+      - name: Setup Gradle
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleDebug
+      
+      - name: Build Debug APK
+        run: |
+          cd android
+          ./gradlew assembleDebug --stacktrace
       
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: JHAG-Hub-App
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          path: android/app/build/outputs/apk/debug/*.apk
