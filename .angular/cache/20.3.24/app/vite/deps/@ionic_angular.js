@@ -1,13 +1,13 @@
 import {
   menuController
-} from "./chunk-I2F5LGE4.js";
+} from "./chunk-PYTFR4AJ.js";
 import {
   getTimeGivenProgression
 } from "./chunk-TA2MDBQV.js";
 import {
   IonicSafeString,
   setupConfig
-} from "./chunk-QIGCBNPP.js";
+} from "./chunk-PL744AB7.js";
 import {
   actionSheetController,
   alertController,
@@ -16,29 +16,38 @@ import {
   pickerController,
   popoverController,
   toastController
-} from "./chunk-X2L5QQNB.js";
-import "./chunk-UOK2HVMS.js";
+} from "./chunk-BSWSUK6F.js";
+import "./chunk-YLIYYCO4.js";
 import {
   openURL
 } from "./chunk-O2OOYHFK.js";
 import {
+  iosTransitionAnimation
+} from "./chunk-V4ZOVSGG.js";
+import {
+  mdTransitionAnimation
+} from "./chunk-4ZCG2DHF.js";
+import {
+  getIonPageElement
+} from "./chunk-JE5JF7FY.js";
+import {
+  createAnimation
+} from "./chunk-BOADUTSG.js";
+import {
+  getPlatforms,
+  initialize,
+  isPlatform
+} from "./chunk-P2DXUKW5.js";
+import "./chunk-FAF425NE.js";
+import {
   createGesture
 } from "./chunk-W2DH2WGQ.js";
 import "./chunk-D32SLB5J.js";
-import "./chunk-LKPBXDKR.js";
-import {
-  iosTransitionAnimation
-} from "./chunk-YYQJW7A3.js";
-import {
-  mdTransitionAnimation
-} from "./chunk-FWD3B2WQ.js";
-import {
-  getIonPageElement
-} from "./chunk-HTXMOFVP.js";
-import {
-  createAnimation
-} from "./chunk-M72C34XN.js";
+import "./chunk-67FWPTLZ.js";
 import "./chunk-DWC2MENN.js";
+import {
+  bootstrapLazy
+} from "./chunk-DK7JEKEE.js";
 import {
   AngularDelegate,
   Config,
@@ -63,24 +72,15 @@ import {
   provideComponentInputBinding,
   raf,
   setIonicClasses
-} from "./chunk-CIEKSLC6.js";
-import "./chunk-XPJVGKBK.js";
-import "./chunk-O5QXKOFI.js";
-import "./chunk-UPIRRHWI.js";
+} from "./chunk-PR2EU6RH.js";
+import "./chunk-P42P5H5X.js";
+import "./chunk-CMH6YVUJ.js";
+import "./chunk-CLDPIZ4W.js";
+import "./chunk-6WQIUYFI.js";
+import "./chunk-FBOO75ZN.js";
 import "./chunk-NEQUNNHX.js";
 import "./chunk-Q7PV5YUG.js";
-import "./chunk-ILDAXB6T.js";
 import "./chunk-XNDSCJWS.js";
-import "./chunk-FBOO75ZN.js";
-import {
-  getPlatforms,
-  initialize,
-  isPlatform
-} from "./chunk-QT5UHYNR.js";
-import "./chunk-ML3X6DP7.js";
-import {
-  bootstrapLazy
-} from "./chunk-3TQCOWWY.js";
 import {
   MaxValidator,
   MinValidator,

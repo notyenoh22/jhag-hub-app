@@ -1,4 +1,12 @@
 import {
+  t as t6
+} from "./chunk-7C6JS6MP.js";
+import {
+  i as i5,
+  r as r3,
+  t as t5
+} from "./chunk-AN4BRTIS.js";
+import {
   a as a2,
   e as e3,
   f as f4,
@@ -12,17 +20,6 @@ import {
 import {
   e as e4
 } from "./chunk-4SKD3W26.js";
-import {
-  o as o5
-} from "./chunk-JOQNI6T3.js";
-import {
-  t as t6
-} from "./chunk-7C6JS6MP.js";
-import {
-  i as i5,
-  r as r3,
-  t as t5
-} from "./chunk-AN4BRTIS.js";
 import {
   $,
   A,
@@ -87,13 +84,13 @@ import {
   t2 as t3,
   x as x2,
   y as y2
-} from "./chunk-CIEKSLC6.js";
+} from "./chunk-PR2EU6RH.js";
 import {
   l as l2
-} from "./chunk-XPJVGKBK.js";
+} from "./chunk-P42P5H5X.js";
 import {
   i as i2
-} from "./chunk-O5QXKOFI.js";
+} from "./chunk-CMH6YVUJ.js";
 import {
   B,
   D,
@@ -104,7 +101,17 @@ import {
   r,
   s as s2,
   v as v2
-} from "./chunk-UPIRRHWI.js";
+} from "./chunk-CLDPIZ4W.js";
+import {
+  o as o3
+} from "./chunk-6WQIUYFI.js";
+import {
+  d,
+  o
+} from "./chunk-FBOO75ZN.js";
+import {
+  o as o5
+} from "./chunk-JOQNI6T3.js";
 import {
   T,
   _,
@@ -130,9 +137,6 @@ import {
   s as s3
 } from "./chunk-Q7PV5YUG.js";
 import {
-  o as o3
-} from "./chunk-ILDAXB6T.js";
-import {
   Ct,
   Dn,
   I,
@@ -148,10 +152,6 @@ import {
   q,
   u
 } from "./chunk-XNDSCJWS.js";
-import {
-  d,
-  o
-} from "./chunk-FBOO75ZN.js";
 import {
   NG_VALUE_ACCESSOR
 } from "./chunk-423TQSW5.js";
@@ -2299,11 +2299,11 @@ var d6 = Dn(class extends I {
   componentDidLoad() {
     this.rIC((() => __async(this, null, function* () {
       const t14 = s4(window, "hybrid");
-      if (n.getBoolean("_testing") || import("./p-BgwEQWW6-I66HDUCP.js").then(((t15) => t15.startTapClick(n))), n.getBoolean("statusTap", t14) && import("./p-CneGxKsZ-5OR4BHSE.js").then(((t15) => t15.startStatusTap())), n.getBoolean("inputShims", m6())) {
+      if (n.getBoolean("_testing") || import("./p-BgwEQWW6-T5AVPXF5.js").then(((t15) => t15.startTapClick(n))), n.getBoolean("statusTap", t14) && import("./p-CneGxKsZ-5OR4BHSE.js").then(((t15) => t15.startStatusTap())), n.getBoolean("inputShims", m6())) {
         const t15 = s4(window, "ios") ? "ios" : "android";
-        import("./p-Cwv-vmkN-ZAZIV5UU.js").then(((e15) => e15.startInputShims(n, t15)));
+        import("./p-Cwv-vmkN-XZTZN7QE.js").then(((e15) => e15.startInputShims(n, t15)));
       }
-      const e14 = yield import("./p-vEbVo2hO-NUUJQXJB.js"), i13 = t14 || o3();
+      const e14 = yield import("./p-vEbVo2hO-EL3G4VC4.js"), i13 = t14 || o3();
       n.getBoolean("hardwareBackButton", i13) ? e14.startHardwareBackButton() : (o3() && u("[ion-app] - experimentalCloseWatcher was set to `true`, but hardwareBackButton was set to `false`. Both config options must be `true` for the Close Watcher API to be used."), e14.blockHardwareBackButton()), "undefined" != typeof window && import("./p-D6Ynv7Xh-TR42UZND.js").then(((t15) => t15.startKeyboardAssist(window))), import("./p-BmVRXR1y-O4RAKTU2.js").then(((t15) => this.focusVisible = t15.startFocusVisible()));
     })));
   }

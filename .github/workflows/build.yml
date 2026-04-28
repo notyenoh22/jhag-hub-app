@@ -1,58 +1,54 @@
-name: Build Android APK
+name: Build APK
 
 on:
   push:
-    branches: [ main, master ]
+    branches:
+      - main
   workflow_dispatch:
-
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
-      - name: Checkout code
+      - name: Checkout Files
         uses: actions/checkout@v4
-      
-      - name: Setup Node.js
+
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 22.14.0
-          
+          node-version: 22
+
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '17'
-      
-      - name: Install dependencies
+          distribution: temurin
+          java-version: 17
+
+      - name: Install Dependencies
         run: npm install
-      
+
       - name: Install Ionic CLI
         run: npm install -g @ionic/cli
-      
-      - name: Build Ionic app
+
+      - name: Build Ionic
         run: ionic build
-      
+
       - name: Install Capacitor
         run: npm install @capacitor/core @capacitor/cli @capacitor/android
-      
-      - name: Add Android platform
+
+      - name: Add Android Platform
         run: npx cap add android
-      
-      - name: Sync Android
+
+      - name: Sync Capacitor
         run: npx cap sync android
-      
-      - name: Setup Gradle permissions
-        run: chmod +x android/gradlew
-      
-      - name: Build Debug APK
+
+      - name: Build APK
         run: |
           cd android
+          chmod +x gradlew
           ./gradlew assembleDebug --stacktrace
-      
+
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
